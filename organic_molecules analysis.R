@@ -1,9 +1,10 @@
 library(readxl)
 library(mixOmics)
 
-MICROPOL_all <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/Bioinfo/MICROPOLLUANTS_moy.xlsx")
-MICROPOL_EC <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/Bioinfo/MICROPOLLUANTS_moy.xlsx", sheet = "EC")
-MICROPOL_NC <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/Bioinfo/MICROPOLLUANTS_moy.xlsx", sheet = "NC")
+MICROPOL_all <- read_delim("MICROPOL_all.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+MICROPOL_EC <- read_delim("MICROPOL_EC.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+MICROPOL_NC <- read_delim("MICROPOL_NC.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+
 
 pca <- pca(MICROPOL_all[,c(3:149)],scale=TRUE, center=TRUE)
 
@@ -49,16 +50,13 @@ write.table(PCmp_nc,"PCmp_nc.xls",row.names=T,col.names=F,quote=F,sep='\t')
 
 #impact on 16S communities
 
-table_EC16 <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/MICROBIO/meta/NGS/VF_analyses/16S/DATA_BRUT/EC_NC_moy/table_E_moy16S.xlsx", 
-                         sheet = "EC")
-meta_EC_16 <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/MICROBIO/meta/NGS/VF_analyses/16S/DATA_BRUT/EC_NC_moy/meta_E_moy16S.xlsx", 
-                         sheet = "EC")
+table_EC16 <- read_delim("table_EC_moy16S.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+meta_EC_16 <- read_delim("meta_EC_moy16S.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 
 tab2_EC<-table_EC16[,-1]
 
-table_NC16 <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/MICROBIO/meta/NGS/VF_analyses/16S/DATA_BRUT/EC_NC_moy/table_E_moy16S.xlsx", 
-                         sheet = "NC")
-meta_NC_16 <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/MICROBIO/meta/NGS/VF_analyses/16S/DATA_BRUT/EC_NC_moy/meta_E_moy16S.xlsx", sheet = "NC", col_types = c("text", "text", "text", "text", "text", "text", "text",  "text", "numeric", "numeric", "numeric"))
+table_NC16 <- read_delim("table_NC_moy16S.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+meta_NC_16 <- read_delim("table_NC_moy16S.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 
 tab2_NC<-table_NC16[,-1]
 
@@ -129,10 +127,12 @@ write.table(coornc_16mp,"coord_16sVSmp.xls",row.names=T,col.names=F,quote=F,sep=
 
 #impact on ITS communities
 
-table_Ec_ITS <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/MICROBIO/meta/NGS/VF_analyses/ITS/data_brut/EC_NC_moyITS/table_OTU_E_moyITS.xlsx", sheet = "EC_T")
-meta_Ec_ITS <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/MICROBIO/meta/NGS/VF_analyses/ITS/data_brut/EC_NC_moyITS/metadata_E_ITS.xlsx", sheet = "EC")
-table_Nc_ITS <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/MICROBIO/meta/NGS/VF_analyses/ITS/data_brut/EC_NC_moyITS/table_OTU_E_moyITS.xlsx", sheet = "NC_T")
-meta_Nc_ITS <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/MICROBIO/meta/NGS/VF_analyses/ITS/data_brut/EC_NC_moyITS/metadata_E_ITS.xlsx", sheet = "NC")
+table_Ec_ITS <- read_delim("table_EC_moyITS.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+meta_Ec_ITS <- read_delim("metadata_EC_ITS.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+
+
+table_Nc_ITS <- read_delim("table_NC_moyITS.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+meta_Nc_ITS <- read_delim("metadata_NC_ITS.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 
 library(mixOmics)
 library(vegan)
@@ -190,9 +190,7 @@ df_ecPC2mpITS<-as.data.frame.array(df_ecPC2mpITS)
 
 cor.test(df_ecPC2mpITS$V1,df_ecPC2mpITS$V2, method="spearman")
 
-
 cor.test(df_ecPC2mpITS$V1,df_ecPC2mpITS$V3, method="spearman")
-
 
 cor.test(df_ecPC2mpITS$V1,df_ecPC2mpITS$V4, method="spearman")
 
@@ -240,11 +238,13 @@ cor.test(df_ncPC1mpITS$V1,df_ncPC1mpITS$V6, method="spearman")
 
 library(readxl)
 
-table_EC_18S <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/MICROBIO/meta/NGS/VF_analyses/18S/DATA_BRUT/table_OTU_moy18S.xlsx", sheet = "EC")
-table_NC_18S <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/MICROBIO/meta/NGS/VF_analyses/18S/DATA_BRUT/table_OTU_moy18S.xlsx", sheet = "NC")
+table_EC_18S  <- read_delim("table_EC_moy18S.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+met_18SEC <- read_delim("meta_EC_18S.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 
-met_18SEC <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/MICROBIO/meta/NGS/VF_analyses/18S/DATA_BRUT/metadata_moy18S.xlsx", sheet = "ec")
-met_18SNC <- read_excel("C:/Users/Penelope/Desktop/THESE/RESULTATS/MICROBIO/meta/NGS/VF_analyses/18S/DATA_BRUT/metadata_moy18S.xlsx", sheet = "nc")
+table_NC_18S  <- read_delim("table_NC_moy18S.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+met_18SNC <- read_delim("meta_NC_18S.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+
+
 
 library(mixOmics)
 library(vegan)
